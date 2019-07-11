@@ -1,0 +1,12 @@
+<nb-card>
+  <nb-card-header>Answer invitation</nb-card-header>
+  <nb-card-body>
+    <p><strong>Are you sure you want to accept this event?</strong></p>
+    <p class="text-primary">{{ event.title | json }}</p>
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="cancel" nbButton status="primary" (click)="cancel()">Cancel</button>
+    <button class="cancel" nbButton status="danger" (click)="submit('reject')">Reject</button>
+    <button nbButton status="success" (click)="submit('accept')">Accept</button>
+  </nb-card-footer>
+</nb-card>

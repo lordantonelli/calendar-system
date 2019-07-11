@@ -1,0 +1,89 @@
+<form class="needs-validation" novalidate [formGroup]="form">
+
+    <nb-card>
+        <nb-card-header>{{title}}</nb-card-header>
+        <nb-card-body>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="inputTitle" class="label">Title</label>
+                        <input type="text" nbInput fullWidth id="inputTitle" placeholder="Title"
+                               formControlName="title" [ngClass]="{'is-valid' : submitted && hasErrors('title')}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="inputDescription" class="label">Description</label>
+                        <textarea id="inputDescription" nbInput fullWidth placeholder="Description" formControlName="description"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="inputColor" class="label">Color</label>
+                        <nb-select id="inputColor" fullWidth placeholder="Select..." formControlName="color">
+                            <nb-option value="red">Red</nb-option>
+                            <nb-option value="blue">Blue</nb-option>
+                            <nb-option value="yellow">Yellow</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="inputStartTime" class="label w-100">&nbsp;</label>
+                        <nb-checkbox (checkedChange)="toggleAllDay($event)" formControlName="allDay">All day long</nb-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="inputStartDate" class="label">Start</label>
+                        <input id="inputStartDate" nbInput readonly placeholder="YYYY/MM/DD" [nbDatepicker]="startDate"
+                               formControlName="startDate">
+                        <nb-datepicker #startDate format="yyyy/MM/dd"></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm" *ngIf="!(allDay)">
+                    <div class="form-group">
+                        <label for="inputStartTime" class="label">&nbsp;</label>
+                        <input id="inputStartTime" placeholder="HH:MM" nbInput [ngxTimepicker]="startTime" [format]="24"  readonly formControlName="startTime">
+                        <ngx-material-timepicker #startTime></ngx-material-timepicker>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="inputEndDate" class="label">End</label>
+                        <input id="inputEndDate" nbInput readonly placeholder="YYYY/MM/DD" [nbDatepicker]="endDate"
+                               formControlName="endDate">
+                        <nb-datepicker #endDate format="yyyy/MM/dd"></nb-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm" *ngIf="!(allDay)">
+                    <div class="form-group">
+                        <label for="inputEndTime" class="label">&nbsp;</label>
+                        <input id="inputEndTime" placeholder="HH:MM" nbInput [ngxTimepicker]="endTime" [format]="24"  readonly formControlName="endTime">
+                        <ngx-material-timepicker #endTime></ngx-material-timepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="!event">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="inputParticipants" class="label">Participants</label>
+                            <nb-select id="inputParticipants" fullWidth multiple placeholder="Select..." formControlName="participants">
+                            <nb-option *ngFor="let item of listUsers" value="{{ item.id }}">{{ item.name }}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <button type="button" class="cancel" nbButton status="primary" (click)="cancel()" ghost>Cancel</button>
+            <button type="button" nbButton status="success" (click)="submit()">Submit</button>
+        </nb-card-footer>
+    </nb-card>
+</form>

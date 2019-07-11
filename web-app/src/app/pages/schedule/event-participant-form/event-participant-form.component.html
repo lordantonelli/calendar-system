@@ -1,0 +1,31 @@
+<form class="needs-validation" novalidate [formGroup]="form">
+
+  <nb-card>
+    <nb-card-header>Invite Participant</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label class="label">Title</label>
+            <div class="h5">{{event.title}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="inputParticipants" class="label">Participants</label>
+            <nb-select id="inputParticipants" style="min-width: 400px;" fullWidth multiple placeholder="Select..." formControlName="participants">
+              <nb-option *ngFor="let item of listUsers" value="{{ item.id }}">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button type="button" class="cancel" nbButton status="primary" (click)="cancel()" ghost>Cancel</button>
+      <button type="button" nbButton status="success" (click)="submit()">Submit</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

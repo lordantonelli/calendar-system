@@ -1,0 +1,42 @@
+<nb-card>
+  <nb-card-header>Event detail</nb-card-header>
+  <nb-card-body>
+
+    <dl class="row">
+      <dt class="col-sm-3">Title</dt>
+      <dd class="col-sm-9">{{ event.title }}</dd>
+
+      <dt class="col-sm-3">Description</dt>
+      <dd class="col-sm-9">{{ event.meta.event.description || "No additional description" }}</dd>
+
+      <dt class="col-sm-3">Start</dt>
+      <dd class="col-sm-9">{{ event.start | date : (event.allDay) ? "EEEE, MMMM d, y" : "EEEE, MMMM d, y hh:mm a" }}</dd>
+
+      <dt class="col-sm-3">End</dt>
+      <dd class="col-sm-9">{{ event.meta.event.end | date : (event.allDay) ? "EEEE, MMMM d, y" : "EEEE, MMMM d, y hh:mm a" }}</dd>
+    </dl>
+
+    <div class="lists row">
+      <div class="col-md-12">
+        <nb-card class="list-card">
+          <nb-card-header>Participants <button class="float-right" nbButton status="primary" (click)="submit('add-participant')"><i class="fas fa-plus"></i></button></nb-card-header>
+          <nb-card-body>
+            <nb-list>
+              <nb-list-item *ngFor="let participant of participants">
+                  <ngx-event-participant [participant]="participant"></ngx-event-participant>
+              </nb-list-item>
+            </nb-list>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="cancel" nbButton status="primary" (click)="cancel()">Close</button>
+    <button *ngIf="userOwn" class="cancel" nbButton status="warning" (click)="submit('edit')">Edit</button>
+    <button *ngIf="userOwn" class="cancel" nbButton status="danger" (click)="submit('delete')">Delete</button>
+    <button *ngIf="!userOwn && event.meta.event.pivot.invitation == 'reject'" class="cancel" nbButton status="success" (click)="submit('accept')">Accept</button>
+    <button *ngIf="!userOwn && event.meta.event.pivot.invitation == 'accept'" class="cancel" nbButton status="danger" (click)="submit('reject')">Reject</button>
+  </nb-card-footer>
+</nb-card>
